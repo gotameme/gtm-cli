@@ -25,8 +25,6 @@ import (
 	"github.com/gotameme/gtm-cli/cmd"
 )
 
-var GoAntMeVersion = "latest"
-
 func main() {
 	cmd.Execute()
 }

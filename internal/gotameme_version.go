@@ -28,9 +28,8 @@ import (
 )
 
 func GetCoreVersion() (string, error) {
-	// find version
+	// find version of core
 	if info, ok := debug.ReadBuildInfo(); ok {
-		fmt.Printf("info: %v\n", info)
 		version := ""
 		for _, dep := range info.Deps {
 			if dep.Path == "github.com/gotameme/core" {

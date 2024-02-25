@@ -62,12 +62,8 @@ to quickly create a Cobra application.`,
 			return
 		}
 
-		code, err := ifacegen.GenerateInterfaceCode(name)
-		if err != nil {
-			fmt.Printf("Error: %v", err)
-			return
-		}
-		fmt.Printf("%s", code)
+		// print success message
+		fmt.Printf("Ant %s created successfully", name)
 	},
 }
 
