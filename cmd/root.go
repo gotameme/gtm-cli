@@ -45,7 +45,7 @@ simple and intuitive command-line interface.
 For example, you can start a new ant simulation, deploy scenarios, or analyze simulation outcomes with commands like:
 
     $ gtm-cli init --name="AwesomeAnt"
-    $ gtm-cli run MyFirstAnt/main.go
+    $ gtm-cli run AwesomeAnt/main.go
 
 Developed with the open-source community in mind, gtm-cli aims to provide an accessible and powerful tool for both
 educational purposes and serious simulation endeavors.`,
