@@ -50,21 +50,21 @@ The 'run' command supports several flags to customize the simulation, including 
 setting the desired amount of sugar cones.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) < 1 {
-			fmt.Println("Bitte geben Sie den Pfad zur .go Datei an.")
+			fmt.Println("Please provide the path to the .go file.")
 			return
 		}
 
 		// resolve the absolute path of the .go file
 		absPath, err := filepath.Abs(args[0])
 		if err != nil {
-			fmt.Println("Fehler beim Auflösen des Pfades:", err)
+			fmt.Println("Error on resolve the absolute path", err)
 			return
 		}
 
 		// create a temporary file to store the compiled plugin
 		tempFile, err := os.CreateTemp("", "plugin-*.so")
 		if err != nil {
-			fmt.Println("Fehler beim Erstellen einer temporären Datei:", err)
+			fmt.Println("Error on creating temporary file:", err)
 			return
 		}
 		tempFilePath := tempFile.Name()
@@ -81,11 +81,11 @@ setting the desired amount of sugar cones.`,
 		buildCmd.Stderr = os.Stderr
 		// run the build command
 		if err := buildCmd.Run(); err != nil {
-			fmt.Println("Fehler beim Kompilieren des Plugins:", err)
+			fmt.Println("Error compiling ant:", err)
 			return
 		}
 
-		fmt.Println("Plugin erfolgreich kompiliert.")
+		fmt.Println("Ant successfully compiled. Starting the simulation...")
 		// load the compiled plugin
 		antPlugin, err := plugin.Open(tempFilePath)
 		if err != nil {
@@ -118,15 +118,6 @@ setting the desired amount of sugar cones.`,
 
 func init() {
 	rootCmd.AddCommand(runCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// runCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
 	runCmd.Flags().BoolP("startImmediately", "i", false, "Start the game immediately after the plugin has been compiled.")
 	// run headless
 	runCmd.Flags().Bool("headless", false, "Run the game in headless mode.")
