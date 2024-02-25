@@ -28,7 +28,7 @@ This command downloads and installs the `gtm-cli` tool, making it ready to use.
 
 ## Usage
 
-`gtm-cli` currently supports two primary commands:
+`gtm-cli` currently supports three primary commands:
 
 ### 1. Root Command
 
@@ -40,7 +40,7 @@ application and available commands.
 The `run` command compiles and executes a Go! Tame! Me! simulation plugin.
 
 ```bash
-gtm-cli run /path/to/your/plugin.go
+gtm-cli run -i /path/to/your/plugin.go
 ```
 
 #### Flags
@@ -48,6 +48,22 @@ gtm-cli run /path/to/your/plugin.go
 - `--startImmediately` or `-i`: Start the game immediately after the plugin has been compiled.
 - `--headless`: Run the game in headless mode for simulations without a graphical interface.
 - `--sugar`: Set the desired amount of sugar cones in the simulation environment.
+
+### 3. Init Command
+
+Starting a new Go! Tame! Me! Ant project is made simple with the init command:
+
+```bash
+gtm-cli init --name "AwesomeAnt"
+```
+
+Executing this command will create a new directory named `AwesomeAnt`, pre-populated with a basic project structure.
+This includes a `go.mod` file to handle dependencies and a main.go file, where a skeleton of an Ant project is
+automatically generated. The generated `main.go` file contains template code to get you started with your ant simulation,
+providing a clear example of how to define ant behaviors and integrate them into the Go! Tame! Me! environment.
+
+The init command is designed to streamline the project setup process, allowing you to jump straight into developing your
+ant behaviors without worrying about boilerplate code.
 
 ## Contributing
 

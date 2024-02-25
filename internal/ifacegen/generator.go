@@ -31,40 +31,73 @@ import (
 )
 
 const antTemplate = `package main
-import(
-	"github.com/gotameme/core/ant"
+
+import (
+	"github.com/gotameme/core/ant" // This imports the ant framework to interact with the simulation.
+	"math/rand" // Used for making random decisions.
 )
 
+// {{ .Name }} is an example implementation of an ant.
+// Think of it as a small agent operating within a virtual world.
 type {{ .Name }} struct {
+	// We embed the AntOS to enable our ant to interact with the simulation environment.
 	ant.AntOs
 }
 
+// NewAnt creates a new ant. This is the only function that needs to be visible outside.
+// It's where the journey of our ant begins.
 func NewAnt(antOS ant.AntOs) ant.Ant {
 	return &{{ .Name }}{antOS}
 }
 
-func (d *{{ .Name }}) Waits() {
-	// Implement me
+// Waits is called when the ant has nothing specific to do.
+// It's the ant's downtime, wondering "What's next?"
+func (a *{{ .Name }}) Waits() {
+	// Choose a random direction because spontaneity keeps things interesting.
+	randomDirection := rand.Intn(360) // A number between 0 and 359 for direction.
+	a.Turn(randomDirection) // Turn in this random direction.
+	// Move forward 60 steps because staying active is key!
+	a.GoForward(60)
 }
 
-func (d *{{ .Name }}) SeeSugar(sugar ant.Sugar) {
-	// Implement me
+// SeeSugar is called when the ant spots sugar.
+// In this world, sugar is akin to treasure.
+func (a *{{ .Name }}) SeeSugar(sugar ant.Sugar) {
+	if a.GetCurrentLoad() > 0 {
+		// Already carrying sugar. No need to go to another one.
+		return
+	}
+	// "Hmm, there's sugar. Let's head over!"
+	a.GoToSugar(sugar)
 }
 
-func (d *{{ .Name }}) ReachedSugar(sugar ant.Sugar) {
-	// Implement me
+// ReachedSugar is called when the ant has reached sugar.
+func (a *{{ .Name }}) ReachedSugar(sugar ant.Sugar) {
+	// Successfully reached sugar. Now, let's take it.
+	_ = a.TakeSugar(sugar)
+	// Time to head back to the anthill.
+	a.GotToAntHill()
 }
 
-func (d *{{ .Name }}) SeeFriend(ant ant.Ant) {
-	// Implement me
+// SeeFriend is called when the ant spots another ant.
+func (a *{{ .Name }}) SeeFriend(friend ant.Ant) {
+	// Interactions when spotting a friend could happen here.
+	// Perhaps a simple acknowledgement or sharing information?
+	// TODO: implement me
 }
 
-func (d *{{ .Name }}) SeeMark(mark ant.Mark) {
-	// Implement me
+// SeeMark is called when the ant spots a mark.
+func (a *{{ .Name }}) SeeMark(mark ant.Mark) {
+	// Marks are like notes left by other ants.
+	// Could be directions or important information.
+	// TODO: implement me
 }
 
-func (d *{{ .Name }}) Tick() {
-	// Implement me
+// Tick is called at every simulation tick.
+func (a *{{ .Name }}) Tick() {
+	// Each "Tick" is like a heartbeat in our simulation.
+	// What does our ant do with every beat?
+	// TODO: implement me
 }
 `
 
