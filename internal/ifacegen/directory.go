@@ -19,14 +19,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
 
-import (
-	"github.com/gotameme/gtm-cli/cmd"
-)
+package ifacegen
 
-var GoAntMeVersion = "latest"
+import "os"
 
-func main() {
-	cmd.Execute()
+func DirectoryExists(name string) bool {
+	if _, err := os.Stat(name); !os.IsNotExist(err) {
+		return true
+	}
+	return false
+}
+
+func CreateDirectory(name string) error {
+	return os.Mkdir(name, 0755)
 }

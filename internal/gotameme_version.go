@@ -19,14 +19,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package main
+
+package internal
 
 import (
-	"github.com/gotameme/gtm-cli/cmd"
+	"fmt"
+	"runtime/debug"
 )
 
-var GoAntMeVersion = "latest"
+func GetCoreVersion() (string, error) {
+	// find version
+	if info, ok := debug.ReadBuildInfo(); ok {
+		fmt.Printf("info: %v\n", info)
+		version := ""
+		for _, dep := range info.Deps {
+			if dep.Path == "github.com/gotameme/core" {
+				version = dep.Version
+			}
+		}
 
-func main() {
-	cmd.Execute()
+		return version, nil
+	}
+
+	return "", fmt.Errorf("unable to read build info")
 }
